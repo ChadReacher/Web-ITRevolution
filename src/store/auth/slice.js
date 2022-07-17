@@ -8,6 +8,8 @@ import axios from 'axios';
 const AUTH_SLICE_NAME = 'auth'
 
 const initialState = {
+    data: null,
+    isAuth: false,
     loading: false,
 };
 
@@ -34,18 +36,26 @@ export const register = createAsyncThunk(
 export const authSlice = createSlice({
     name: AUTH_SLICE_NAME,
     initialState,
-    reducers: {},
+    reducers: {
+        resetAuthState: (state) => {
+            state = initialState
+        }
+    },
     extraReducers: {
         [auth.pending]: (state) => {
             state.loading = true
         },
         [auth.fulfilled]: (state, action) => {
+            state.data = action.payload
+            state.isAuth = Boolean(action.payload?.id)
             state.loading = false
         },
         [register.pending]: (state) => {
             state.loading = true
         },
         [register.fulfilled]: (state, action) => {
+            state.data = action.payload
+            state.isAuth = Boolean(action.payload?.id)
             state.loading = false
         },
     },
@@ -53,6 +63,11 @@ export const authSlice = createSlice({
 
 // Selectors
 export const selectAuthLoading = (state) => state.auth.loading;
+export const selectIsAuth = (state) => state.auth.isAuth;
+
+
+export const {resetAuthState} = authSlice.actions
+
 
 // Reducer
 export const authReducer = authSlice.reducer;

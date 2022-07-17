@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 // Styles
 import './navigation-bar.css'
 
-const NavigationBar = ({ isAuth }) => {
+const NavigationBar = ({ isAuth, logout }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -30,7 +30,7 @@ const NavigationBar = ({ isAuth }) => {
                 <NavLink to='/all-users' className='nav-link'>All users</NavLink>
               </Typography>
 
-              <div className="flex-inline">
+              <div className="flex-inline" onClick={logout}>
                 <Typography variant="h6" component="div" sx={{ justifySelf: 'end' }}>
                   Logout
                 </Typography>

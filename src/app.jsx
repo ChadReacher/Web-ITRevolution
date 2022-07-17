@@ -1,19 +1,30 @@
 import React from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { AllUsers, Auth, Profile, UserDetails, Registr } from './pages'
+// Hooks
+import { useSelector, useDispatch } from 'react-redux';
 // Components
 import { NavigationBar } from './components'
 
 // Styles
 import 'normalize.css';
+// Selectors
+import { selectIsAuth, resetAuthState } from './store/auth/slice';
 
 const App = () => {
 
-  const isAuth = true; // Todo: replace when data is received
+  const isAuth = useSelector(selectIsAuth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatch(resetAuthState())
+    window.location.reload(false)
+  }
 
   return (
     <>
-      <NavigationBar isAuth={isAuth}/>
+      <NavigationBar isAuth={isAuth} logout={logout}/>
       <Routes>
         {
           isAuth ? <>
