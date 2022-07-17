@@ -8,7 +8,7 @@ import 'normalize.css';
 
 const App = () => {
 
-  const isAuth = true; // Todo: replace when data is received
+  const isAuth = false; // Todo: replace when data is received
 
   return (
     <>

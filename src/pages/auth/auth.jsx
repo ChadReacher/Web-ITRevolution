@@ -1,25 +1,47 @@
 import React from 'react'
 // Styles
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, FormHelperText } from '@mui/material';
+// Hooks
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required().min(6),
+}).required();
+
+
 
 const Auth = () => {
+
+  const { register, handleSubmit, formState: { errors, isValid, isDirty } } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange"
+  });
+
+  const onSubmit = data => {
+    console.log(data);
+  }
+
   return (
     <div>
       <Link className="button__in" to="/">Sign up</Link>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="form__title">
           Sign in
         </h1>
         <p className="form__description">
           Sign in and start managing your candidates!
         </p>
-        <input id="email" type="text" className="email-field" placeholder="Enter E-mail" />
-        <input id="password" type="text" className="password-field" placeholder="Enter password" />
-        <Button variant="contained" className="submit_button">Sign in</Button>
+        <input id="email" type="email" className="email-field" placeholder="Enter E-mail"  {...register("email")}/>
+        <FormHelperText sx={{color: 'red'}}>{errors.email?.message}</FormHelperText>
+        <input id="password" type="password" className="password-field" placeholder="Enter password" {...register("password")}/>
+        <FormHelperText sx={{color: 'red'}}>{errors.password?.message}</FormHelperText>
+        <Button variant="contained" className="submit_button" disabled={!isDirty || !isValid} type="submit">Sign in</Button>
       </form>
     </div>
-
   )
 }
 
