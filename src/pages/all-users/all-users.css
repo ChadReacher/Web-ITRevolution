@@ -1,4 +1,9 @@
-.center {
-    margin: 0 auto;
-    text-align: center;
-  }
+.container {
+    padding: 20px 100px 100px;
+    background-color: #f0fafb;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 50px !important;
+}
