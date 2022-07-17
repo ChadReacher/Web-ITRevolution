@@ -23,7 +23,7 @@ const Registr = () => {
           <input type="checkbox" name="rememberUser" defaultValue="remember" className="checkbox" />
           <span className="remember">Remember me</span>
         </label>
-        <a className="form__button" href="#">Sign up</a>
+        <a className="form__button" href="#">Sign in</a>
       </div>
     </div>
 
