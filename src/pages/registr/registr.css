@@ -23,31 +23,25 @@ body {
 }
 
 .form {
-    display: block;
-    width: 380px;
-    height: 447px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0px;
-
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
 }
 
 .form__title {
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
-    font-size: 64px;
-    line-height: 80px;
-    /* identical to box height */
-
+    font-size: 36px;
+    line-height: 30px;
     text-align: center;
-
     color: #224957;
 }
 
 .form__description {
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
@@ -78,14 +72,9 @@ body {
     padding-top: 20px;
     display: block;
     text-align: center;
-
-
-
-
 }
 
 input {
-    display: block;
     margin-left: auto;
     margin-right: auto;
     padding-left: 10px;
@@ -100,7 +89,17 @@ input::placeholder {
     line-height: 20px;
 }
 
-input[type=text] {
+.email-field,
+.password-field,
+.name-field,
+.surname-field,
+.age-field,
+.gender-field {
+    min-height: 45px !important;
+    border: 0px;
+    margin-top: 20px;
+    background: #224957;
+    border-radius: 10px;
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
@@ -109,38 +108,21 @@ input[type=text] {
     color: white;
 }
 
-.email-field,
-.password-field,
 .name-field,
-.surname-field,
-.age-field,
-.gender-field {
-    width: 300px;
-    height: 45px;
-    border: 0px;
-    margin-top: 30px;
-    background: #224957;
-    border-radius: 10px;
-
+.surname-field {
+    width: 170px;
 }
 
-label {
-    display: block;
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.checkbox {
-    display: inline-block;
-    margin-left: 38px;
-    margin-top: 30px;
-
-
+.row > input {
+    margin-top: 0;
 }
 
-input[type=checkbox] {
-    accent-color: #20DF7F;
-    ;
-}
-
-.remember {
-    margin-left: 10px;
+.submit_button {
+    margin: 20px auto 50px !important;
 }

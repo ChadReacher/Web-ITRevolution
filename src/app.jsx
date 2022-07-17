@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import { AllUsers, Auth, Profile, UserDetails } from './pages'
+import { AllUsers, Auth, Profile, UserDetails, Registr } from './pages'
 // Components
 import { NavigationBar } from './components'
 // Styles
@@ -25,10 +25,11 @@ const App = () => {
             />
           </> :
             <>
-              <Route path='/' exact element={<Auth />} />
+              <Route path='/' exact element={<Registr />} />
+              <Route path='/sign-in' exact element={<Auth />} />
               <Route
                 path="*"
-                element={<Auth />}
+                element={<Registr />}
               />
             </>
         }
