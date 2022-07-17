@@ -1,4 +1,5 @@
 import React from 'react'
+import UpgradeIcon from '@mui/icons-material/Upgrade';
 // Styles
 import './profile.css'
 
@@ -6,16 +7,23 @@ const Profile = () => {
   return (
     <div>
       <header className="header">
-        <h1 className="header__title">User profile</h1>
-        <a href="#" className="header__btn">User list</a>
+        <div className="row">
+          <h1 className="header__title">User profile</h1>
+          <div className='row_profile' onClick={()=> {}}>
+            UPDATE PROFILE
+            <UpgradeIcon sx={{color: '#fff'}}/>
+          </div>
+        </div>
       </header>
       <main className="main">
-        <div className="photo">
-          <img className="photo__user" src="ava.png" alt="ava" />
-        </div>
         <div className="data">
+
           <h1 className="title__data">User data</h1>
-          <a href="#"><img className="img__edit" src="Edit_Notepad_Icon.svg" alt="edit-img" /></a>
+
+
+          <div className="photo">
+            AV
+          </div>
           <ul className="user__data">
             <li className="data__item">Email</li>
             <li className="data__user">petrov@gmail.com</li>
@@ -29,7 +37,6 @@ const Profile = () => {
             <li className="data__user">Male</li>
           </ul>
         </div>
-        <img className="bottom__bg" src="bottom.svg" alt="bottom-bg" />
       </main>
     </div>
 

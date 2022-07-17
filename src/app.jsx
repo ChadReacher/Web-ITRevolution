@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { AllUsers, Auth, Profile, UserDetails, Registr } from './pages'
 // Components
 import { NavigationBar } from './components'
+
 // Styles
 import 'normalize.css';
 
 const App = () => {
 
-  const isAuth = false; // Todo: replace when data is received
+  const isAuth = true; // Todo: replace when data is received
 
   return (
     <>
