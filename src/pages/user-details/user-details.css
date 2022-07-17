@@ -1,0 +1,29 @@
+.user-details-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.user-details-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Lexend Deca';
+    background-color: rgb(10, 73, 192);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+.user-details-info {
+    color: rgb(46, 49, 51);
+    font-family: 'Lexend Deca';
+    font-size: 20px;
+    margin: 15px auto;
+    text-align: center;
+}

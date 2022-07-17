@@ -15,7 +15,6 @@ const App = () => {
 
   const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const logout = () => {
     dispatch(resetAuthState())
