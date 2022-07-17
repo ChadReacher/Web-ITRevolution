@@ -6,7 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 // Styles
 import './registr.css'
-import { Button, FormHelperText } from '@mui/material';
+import { Button, FormHelperText, Box, CircularProgress } from '@mui/material';
+// Store
+import { useDispatch, useSelector } from 'react-redux';
+import { register as registerUser, selectAuthLoading } from './../../store/auth/slice';
 
 const schema = yup.object({
   firstName: yup.string().required(),
@@ -23,9 +26,17 @@ const Registr = () => {
     resolver: yupResolver(schema),
     mode: "onChange"
   });
+  const dispatch = useDispatch()
 
+  const loading = useSelector(selectAuthLoading)
   const onSubmit = data => {
-    console.log(data);
+    dispatch(registerUser(data))
+  }
+
+  if (loading) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <CircularProgress />
+    </Box>
   }
 
   return (
@@ -61,18 +72,18 @@ const Registr = () => {
           </div>
         </div>
         <div className="row">
-          <FormHelperText sx={{color: 'red'}}>{errors.firstName?.message}</FormHelperText>
-          <FormHelperText sx={{color: 'red'}}>{errors.lastName?.message}</FormHelperText>
+          <FormHelperText sx={{ color: 'red' }}>{errors.firstName?.message}</FormHelperText>
+          <FormHelperText sx={{ color: 'red' }}>{errors.lastName?.message}</FormHelperText>
         </div>
 
         <input id="gender" type="text" className="gender-field" placeholder="Enter gender" {...register("gender")} />
-        <FormHelperText sx={{color: 'red'}}>{errors.gender?.message}</FormHelperText>
+        <FormHelperText sx={{ color: 'red' }}>{errors.gender?.message}</FormHelperText>
         <input id="age" type="text" className="age-field" placeholder="Enter age"  {...register("age")} />
-        <FormHelperText sx={{color: 'red'}}>{errors.age?.message}</FormHelperText>
+        <FormHelperText sx={{ color: 'red' }}>{errors.age?.message}</FormHelperText>
         <input id="email" type="email" className="email-field" placeholder="Enter E-mail" {...register("email")} />
-        <FormHelperText sx={{color: 'red'}}>{errors.email?.message}</FormHelperText>
+        <FormHelperText sx={{ color: 'red' }}>{errors.email?.message}</FormHelperText>
         <input id="password" type="password" className="password-field" placeholder="Enter password" {...register("password")} />
-        <FormHelperText sx={{color: 'red'}}>{errors.password?.message}</FormHelperText>
+        <FormHelperText sx={{ color: 'red' }}>{errors.password?.message}</FormHelperText>
 
         <Button variant="contained" className="submit_button" disabled={!isDirty || !isValid} type="submit">Sign up</Button>
       </form>

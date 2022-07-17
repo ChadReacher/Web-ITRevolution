@@ -1,11 +1,14 @@
 import React from 'react'
 // Styles
 import { Link } from 'react-router-dom';
-import { Button, FormHelperText } from '@mui/material';
+import { Button, FormHelperText, CircularProgress, Box } from '@mui/material';
 // Hooks
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+// Store
+import { useDispatch, useSelector } from 'react-redux';
+import { auth, selectAuthLoading } from './../../store/auth/slice';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -21,8 +24,18 @@ const Auth = () => {
     mode: "onChange"
   });
 
+  const dispatch = useDispatch()
+
   const onSubmit = data => {
-    console.log(data);
+    dispatch(auth(data))
+  }
+
+  const loading = useSelector(selectAuthLoading);
+
+  if (loading) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <CircularProgress />
+    </Box>
   }
 
   return (
@@ -35,10 +48,10 @@ const Auth = () => {
         <p className="form__description">
           Sign in and start managing your candidates!
         </p>
-        <input id="email" type="email" className="email-field" placeholder="Enter E-mail"  {...register("email")}/>
-        <FormHelperText sx={{color: 'red'}}>{errors.email?.message}</FormHelperText>
-        <input id="password" type="password" className="password-field" placeholder="Enter password" {...register("password")}/>
-        <FormHelperText sx={{color: 'red'}}>{errors.password?.message}</FormHelperText>
+        <input id="email" type="email" className="email-field" placeholder="Enter E-mail"  {...register("email")} />
+        <FormHelperText sx={{ color: 'red' }}>{errors.email?.message}</FormHelperText>
+        <input id="password" type="password" className="password-field" placeholder="Enter password" {...register("password")} />
+        <FormHelperText sx={{ color: 'red' }}>{errors.password?.message}</FormHelperText>
         <Button variant="contained" className="submit_button" disabled={!isDirty || !isValid} type="submit">Sign in</Button>
       </form>
     </div>

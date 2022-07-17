@@ -5,9 +5,13 @@ import {
 import {
   allUsersReducer
 } from './all-users'
+import {
+  authReducer
+} from './auth'
 
 export const store = configureStore({
   reducer: {
-    allUsers: allUsersReducer
+    allUsers: allUsersReducer,
+    auth: authReducer,
   },
 });
