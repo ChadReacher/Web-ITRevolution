@@ -1,10 +1,11 @@
 import React from 'react'
 // Styles
-import './auth.css'
+import './registr'
 
-const Auth = () => {
+const Registr = () => {
   return (
     <div>
+      <title>Registration</title>
       <a className="button__in" href="#">Sign in</a>
       <div className="form">
         <h1 className="form__title">
@@ -27,8 +28,10 @@ const Auth = () => {
       </div>
     </div>
 
+
+
   )
 }
 
 
-export default Auth
+export default Registr
