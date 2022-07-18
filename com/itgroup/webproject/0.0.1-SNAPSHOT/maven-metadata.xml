@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.itgroup</groupId>
+  <artifactId>webproject</artifactId>
+  <versioning>
+    <lastUpdated>20220718074049</lastUpdated>
+    <snapshot>
+      <timestamp>20220718.074049</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.1-20220718.074049-1</value>
+        <updated>20220718074049</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.1-20220718.074049-1</value>
+        <updated>20220718074049</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>0.0.1-SNAPSHOT</version>
+</metadata>
