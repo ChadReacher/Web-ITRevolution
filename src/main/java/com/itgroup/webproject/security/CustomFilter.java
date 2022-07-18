@@ -46,7 +46,7 @@ public class CustomFilter extends AbstractAuthenticationProcessingFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        SecurityContextHolder.getContext().setAuthentication(authResult);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         User user = ((UserSecurity) authResult.getPrincipal()).getUser();
@@ -62,6 +62,5 @@ public class CustomFilter extends AbstractAuthenticationProcessingFilter {
         userJSON.append("}");
         response.getWriter().print(userJSON);
         response.getWriter().flush();
-        SecurityContextHolder.getContext().setAuthentication(authResult);
     }
 }

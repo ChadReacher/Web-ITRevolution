@@ -40,8 +40,6 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
-                .and()
                 .addFilterAt(
                         mupaf,
                         UsernamePasswordAuthenticationFilter.class)
