@@ -33,8 +33,10 @@ public class MainController {
     public boolean isRegistered() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
+            System.out.println("I am not authenticated");
             return false;
         } else {
+            System.out.println("I am authenticated");
             return true;
         }
     }

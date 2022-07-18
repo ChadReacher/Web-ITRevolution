@@ -23,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.getUserByEmail(email);
+        System.out.println("We find user " + user);
         UserDetails userDetails = new UserSecurity(user);
         return userDetails;
     }

@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -26,16 +28,21 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomFilter mupaf = new CustomFilter();
+        mupaf.setAuthenticationManager(authenticationManager());
+
         http
+                .cors()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**", "/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                .and()
+                .addFilterAt(
+                        mupaf,
+                        UsernamePasswordAuthenticationFilter.class)
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                     .invalidateHttpSession(true)
