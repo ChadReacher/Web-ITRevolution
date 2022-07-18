@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
-@CrossOrigin(origins = "/")
+@CrossOrigin(origins = "https://user-viewer.herokuapp.com/")
 public class MainController {
 
     UserService userService;
