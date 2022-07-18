@@ -35,7 +35,7 @@ public class AuthController {
         return new UserJson(user, true);
     }
 
-    @PostMapping("profile")
+    @GetMapping("profile")
     public void updateUser(@RequestBody User updatedUser, HttpServletResponse response) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user =  ((UserSecurity) authentication.getPrincipal()).getUser();

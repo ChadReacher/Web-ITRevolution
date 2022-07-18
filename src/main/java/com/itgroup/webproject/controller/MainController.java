@@ -33,17 +33,14 @@ public class MainController {
     public boolean isRegistered() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
-            System.out.println("I am not authenticated");
             return false;
         } else {
-            System.out.println("I am authenticated");
             return true;
         }
     }
 
     @GetMapping("users")
     public List<User> getAllUsers() {
-        System.out.println("We are working!!!");
         return userService.getAllUsers().subList(0, 10);
     }
 
@@ -52,7 +49,7 @@ public class MainController {
         return userService.getUserById(id);
     }
 
-/*    @GetMapping("profile")
+    @GetMapping("profile")
     public User getUserProfile(HttpServletResponse response) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
@@ -61,5 +58,5 @@ public class MainController {
         } else {
             return ((UserSecurity) authentication.getPrincipal()).getUser();
         }
-    }*/
+    }
 }
