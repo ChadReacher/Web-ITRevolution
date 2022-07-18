@@ -3,21 +3,21 @@
   <groupId>com.itgroup</groupId>
   <artifactId>webproject</artifactId>
   <versioning>
-    <lastUpdated>20220718074049</lastUpdated>
+    <lastUpdated>20220718074750</lastUpdated>
     <snapshot>
-      <timestamp>20220718.074049</timestamp>
+      <timestamp>20220718.074750</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.0.1-20220718.074049-1</value>
-        <updated>20220718074049</updated>
+        <value>0.0.1-20220718.074750-1</value>
+        <updated>20220718074750</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.0.1-20220718.074049-1</value>
-        <updated>20220718074049</updated>
+        <value>0.0.1-20220718.074750-1</value>
+        <updated>20220718074750</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
