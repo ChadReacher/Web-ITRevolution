@@ -1,7 +1,10 @@
 package com.itgroup.webproject.controller;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.itgroup.webproject.entity.User;
+import com.itgroup.webproject.security.BcryptPasswordEncoder;
 import com.itgroup.webproject.security.UserSecurity;
 import com.itgroup.webproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +25,32 @@ import java.io.IOException;
 public class AuthController {
 
     private final UserService userService;
+    private BcryptPasswordEncoder bcryptPasswordEncoder;
+
 
 
     @Autowired
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, BcryptPasswordEncoder bcryptPasswordEncoder) {
         this.userService = userService;
+        this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
     @PostMapping("auth")
     public UserJson registerNewUser(@RequestBody User user) {
         userService.saveUser(user);
         return new UserJson(user, true);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity loginSubmit(@RequestBody LoginForm loginForm) {
+        String email = loginForm.getEmail();
+        String password = bcryptPasswordEncoder.passwordEncoder().encode(loginForm.getPassword());
+        User userByEmail = userService.getUserByEmail(email);
+        if (userByEmail == null || !password.equals(userByEmail.getPassword())) {
+            return new ResponseEntity("", HttpStatus.valueOf(401));
+        } else {
+            return new ResponseEntity(userByEmail, HttpStatus.valueOf(200));
+        }
     }
 
     @GetMapping("profile")
