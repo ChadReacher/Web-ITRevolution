@@ -12,9 +12,8 @@ import { useParams } from 'react-router-dom';
 const UserDetails = () => {
   const users = useSelector(selectAllUsers);
   const {id} = useParams()
-  console.log(id)
-  const user = users.find(item => +item.id === +id)
-  console.log(user, users)
+
+  const user = users.find(item => +item.userId === +id)
 
   const getAbbr = (name = '') => {
     const [firstName, lastName] = name.split(' ')
@@ -25,12 +24,13 @@ const UserDetails = () => {
   return (
     <div className='user-details-container'>
       <div className="user-details-logo">
-        {getAbbr(user.name)}
+        {getAbbr(`${user.firstName} ${user.lastName}`)}
       </div>
-      <p className="user-details-info">{user.name}</p>
+      <p className="user-details-info">ID: {user.userId}</p>
+      <p className="user-details-info">{`${user.firstName} ${user.lastName}`}</p>
       <p className="user-details-info">{user.email}</p>
-      <p className="user-details-info">{user.phone}</p>
-      <p className="user-details-info">Male</p>
+      <p className="user-details-info">{user.gender}</p>
+      <p className="user-details-info">Age: {user.age}</p>
     </div>
   )
 }

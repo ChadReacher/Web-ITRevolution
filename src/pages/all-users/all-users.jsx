@@ -44,10 +44,10 @@ const AllUsers = () => {
   return (<div className="container" >
     <Typography className='title' variant='h4' color="#5ea4a4">All users</Typography>
       {users?.map(item => <ListItem
-        onClick={() => onCardClick(item.id)}
-        abbreviation={getAbbr(item.name)}
-        name={item.name}
-        key={item.id}
+        onClick={() => onCardClick(item.userId)}
+        abbreviation={getAbbr(`${item.firstName} ${item.lastName}`)}
+        name={`${item.firstName} ${item.lastName}`}
+        key={item.userId}
       />)}
   </div >
   );

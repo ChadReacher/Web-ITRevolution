@@ -10,13 +10,14 @@ const ALL_USERS_SLICE_NAME = 'allUsers'
 const initialState = {
     users: null,
     loading: false,
+    error: false,
 };
 
 // Async action
 export const fetchAllUsers = createAsyncThunk(
     `${ALL_USERS_SLICE_NAME}/fetch`,
     async () => {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users'); // TODO: replace
+        const response = await axios.get('https://webitrevolution.herokuapp.com/api/v1/users');
         return response.data;
     }
 );
@@ -29,6 +30,10 @@ export const allUsersSlice = createSlice({
     extraReducers: {
         [fetchAllUsers.pending]: (state) => {
             state.loading = true
+        },
+        [fetchAllUsers.rejected]: (state) => {
+            state.loading = false
+            state.error = true
         },
         [fetchAllUsers.fulfilled]: (state, action) => {
             state.users = action.payload
