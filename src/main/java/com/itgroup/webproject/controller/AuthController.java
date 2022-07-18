@@ -52,6 +52,12 @@ public class AuthController {
         return new UserJson(user, true);
     }
 
+    @PostMapping("delete/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.delete(userService.getUserById(id));
+    }
+
+
     @GetMapping("profile")
     public void updateUser(@RequestBody User updatedUser, HttpServletResponse response) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

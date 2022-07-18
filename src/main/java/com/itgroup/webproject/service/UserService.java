@@ -49,4 +49,8 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElse(null);
     }
+
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }
