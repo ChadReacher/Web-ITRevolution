@@ -18,6 +18,7 @@ const App = () => {
   const navigate = useNavigate()
 
   const logout = () => {
+    localStorage.clear()
     dispatch(userLogout())
     dispatch(resetAuthState())
     window.location.reload(false)

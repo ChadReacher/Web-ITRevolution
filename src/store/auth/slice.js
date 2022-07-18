@@ -7,9 +7,12 @@ import axios from 'axios';
 // Name of the slice
 const AUTH_SLICE_NAME = 'auth'
 
+const user = JSON.parse(localStorage.getItem('user'))?.user
+const authLocal =  JSON.parse(localStorage.getItem('isAuth'))?.isAuth
+
 const initialState = {
-    userData: null,
-    isAuth: false,
+    userData: user ? user : null,
+    isAuth: authLocal ? authLocal: false,
     loading: false,
     authError: false,
     registerError: false,
@@ -99,6 +102,8 @@ export const authSlice = createSlice({
             state.userData = action.payload
             state.isAuth = true
             state.loading = false
+            localStorage.setItem('isAuth', JSON.stringify({isAuth: true}))
+            localStorage.setItem('user', JSON.stringify({user: action.payload}))
         },
 
         [register.pending]: (state) => {
@@ -111,6 +116,9 @@ export const authSlice = createSlice({
         [register.fulfilled]: (state, action) => {
             state.userData = action.payload?.user
             state.isAuth = action.payload?.auth
+
+            localStorage.setItem('isAuth', JSON.stringify({isAuth: action.payload?.auth}))
+            localStorage.setItem('user', JSON.stringify({user: action.payload?.user}))
             state.loading = false
         },
 
@@ -125,6 +133,7 @@ export const authSlice = createSlice({
             state.userData = action.payload
             state.isAuth = true;
             state.loading = false
+            localStorage.setItem('user', JSON.stringify({user: action.payload}))
         },
 
         [getIsAuth.pending]: (state) => {

@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 // Store
 import { useDispatch, useSelector } from 'react-redux';
-import { auth, selectAuthLoading } from './../../store/auth/slice';
+import { auth, selectAuthLoading, selectAuthError } from './../../store/auth/slice';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -31,6 +31,7 @@ const Auth = () => {
   }
 
   const loading = useSelector(selectAuthLoading);
+  const errorAuth = useSelector(selectAuthError);
 
   if (loading) {
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
@@ -48,6 +49,7 @@ const Auth = () => {
         <p className="form__description">
           Sign in and start managing your candidates!
         </p>
+        {errorAuth ? <FormHelperText sx={{ color: 'red', fondSize: 20, textAlign: 'center' }}>Password or email is incorrect</FormHelperText> : null}
         <input id="email" type="email" className="email-field" placeholder="Enter E-mail"  {...register("email")} />
         <FormHelperText sx={{ color: 'red' }}>{errors.email?.message}</FormHelperText>
         <input id="password" type="password" className="password-field" placeholder="Enter password" {...register("password")} />

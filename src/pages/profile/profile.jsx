@@ -38,10 +38,11 @@ const Profile = () => {
     dispatch(updateUser({ ...data, password: user?.password, userId: user?.userId, email: user?.email, }))
     handleClose()
   }
-  
+
   const navigate = useNavigate()
 
   const onDelete = () => {
+    localStorage.clear()
     dispatch(deleteUser(user?.userId))
     dispatch(userLogout())
     dispatch(resetAuthState())
