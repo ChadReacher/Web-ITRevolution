@@ -41,8 +41,6 @@ public class UserService {
 
     @Transactional
     public void updateUser(Long id, User user) {
-        String encodedPassword = passwordEncoder.passwordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
         userRepository.updateUserById(id, user);
     }
 
