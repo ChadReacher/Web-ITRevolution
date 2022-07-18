@@ -10,7 +10,7 @@ import { selectAllUsers, selectAllUsersLoading, fetchAllUsers } from '../../stor
 // Components
 import { ListItem } from '../../components'
 // Styles
-import { Typography } from '@mui/material';
+import { Typography, Box, CircularProgress } from '@mui/material';
 import './all-users.css';
 
 const AllUsers = () => {
@@ -26,7 +26,9 @@ const AllUsers = () => {
   }, [])
 
   if (loading) {
-    return <h1 className="center">Loading...</h1>
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <CircularProgress />
+    </Box>
   }
 
   const onCardClick = (id) => {
@@ -47,8 +49,6 @@ const AllUsers = () => {
         name={item.name}
         key={item.id}
       />)}
-
-
   </div >
   );
 }

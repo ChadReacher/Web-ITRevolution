@@ -32,6 +32,15 @@ export const register = createAsyncThunk(
     }
 );
 
+export const updateUser = createAsyncThunk(
+    `${AUTH_SLICE_NAME}/fetch-update`,
+    async (data) => {
+        const response = await axios.post('https://jsonplaceholder.typicode.com/users', {...data}); // TODO: replace
+        console.log(data)
+        return response.data;
+    }
+);
+
 // Slice
 export const authSlice = createSlice({
     name: AUTH_SLICE_NAME,
@@ -54,6 +63,14 @@ export const authSlice = createSlice({
             state.loading = true
         },
         [register.fulfilled]: (state, action) => {
+            state.data = action.payload
+            state.isAuth = Boolean(action.payload?.id)
+            state.loading = false
+        },
+        [updateUser.pending]: (state) => {
+            state.loading = true
+        },
+        [updateUser.fulfilled]: (state, action) => {
             state.data = action.payload
             state.isAuth = Boolean(action.payload?.id)
             state.loading = false
