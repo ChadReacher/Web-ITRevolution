@@ -10,6 +10,7 @@ import com.itgroup.webproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,30 +28,28 @@ public class AuthController {
     private final UserService userService;
     private BcryptPasswordEncoder bcryptPasswordEncoder;
 
-
-
     @Autowired
     public AuthController(UserService userService, BcryptPasswordEncoder bcryptPasswordEncoder) {
         this.userService = userService;
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
+    @GetMapping()
+    public ResponseEntity processSuccessLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return new ResponseEntity(null, HttpStatus.valueOf(401));
+        } else {
+            User user =  ((UserSecurity) authentication.getPrincipal()).getUser();
+            return new ResponseEntity(user, HttpStatus.valueOf(200));
+        }
+    }
+
+
     @PostMapping("auth")
     public UserJson registerNewUser(@RequestBody User user) {
         userService.saveUser(user);
         return new UserJson(user, true);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity loginSubmit(@RequestBody LoginForm loginForm) {
-        String email = loginForm.getEmail();
-        String password = bcryptPasswordEncoder.passwordEncoder().encode(loginForm.getPassword());
-        User userByEmail = userService.getUserByEmail(email);
-        if (userByEmail == null || !password.equals(userByEmail.getPassword())) {
-            return new ResponseEntity("", HttpStatus.valueOf(401));
-        } else {
-            return new ResponseEntity(userByEmail, HttpStatus.valueOf(200));
-        }
     }
 
     @GetMapping("profile")

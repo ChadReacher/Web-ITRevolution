@@ -30,7 +30,6 @@ public class CustomFilter extends AbstractAuthenticationProcessingFilter {
         } catch (IOException e) {
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
-
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                 email, password);
         return this.getAuthenticationManager().authenticate(authRequest);
