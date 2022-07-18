@@ -43,6 +43,7 @@ public class MainController {
 
     @GetMapping("users")
     public List<User> getAllUsers() {
+        System.out.println("We are working!!!");
         return userService.getAllUsers().subList(0, 10);
     }
 
