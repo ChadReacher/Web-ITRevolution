@@ -56,10 +56,9 @@ public class MainController {
     }
 
     @GetMapping("profile")
-    public User getUserProfile(HttpServletResponse response) throws IOException {
+    public User getUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
-            response.sendRedirect("/login");
             return null;
         } else {
             return ((UserSecurity) authentication.getPrincipal()).getUser();

@@ -27,7 +27,6 @@ public class CustomFilter extends AbstractAuthenticationProcessingFilter {
             Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
             email = requestMap.get("email");
             password = requestMap.get("password");
-            System.out.println(email + " " + password);
         } catch (IOException e) {
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
