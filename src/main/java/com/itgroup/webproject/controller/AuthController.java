@@ -34,7 +34,7 @@ public class AuthController {
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
-    @GetMapping()
+/*    @GetMapping()
     public ResponseEntity processSuccessLogin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
@@ -43,7 +43,7 @@ public class AuthController {
             User user =  ((UserSecurity) authentication.getPrincipal()).getUser();
             return new ResponseEntity(user, HttpStatus.valueOf(200));
         }
-    }
+    }*/
 
 
     @PostMapping("auth")

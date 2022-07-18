@@ -40,10 +40,12 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .formLogin()
+                .and()
                 .addFilterAt(
                         mupaf,
                         UsernamePasswordAuthenticationFilter.class)
-                    .logout()
+                .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
