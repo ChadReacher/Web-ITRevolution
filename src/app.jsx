@@ -9,21 +9,24 @@ import { NavigationBar } from './components'
 // Styles
 import 'normalize.css';
 // Selectors
-import { selectIsAuth, resetAuthState } from './store/auth/slice';
+import { selectIsAuth, resetAuthState, userLogout } from './store/auth/slice';
 
 const App = () => {
 
   const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const logout = () => {
+    dispatch(userLogout())
     dispatch(resetAuthState())
     window.location.reload(false)
+    navigate('/')
   }
 
   return (
     <>
-      <NavigationBar isAuth={isAuth} logout={logout}/>
+      <NavigationBar isAuth={isAuth} logout={logout} />
       <Routes>
         {
           isAuth ? <>

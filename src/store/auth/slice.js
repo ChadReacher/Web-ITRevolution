@@ -14,22 +14,26 @@ const initialState = {
     authError: false,
     registerError: false,
     updateUserError: false,
+    isAuthError: false,
+    logoutError: false,
 };
 
 // Async action
 export const auth = createAsyncThunk(
     `${AUTH_SLICE_NAME}/fetch-auth`,
     async (data) => {
-        const response = await axios.post('https://webitrevolution.herokuapp.com/login', data); // TODO: replace
         console.log(data)
+        const response =  await axios.post('https://webitrevolution.herokuapp.com/login', {...data});
         return response.data;
     }
 );
 
+
+
 export const register = createAsyncThunk(
     `${AUTH_SLICE_NAME}/fetch-register`,
     async (data) => {
-        const response = await axios.post('https://webitrevolution.herokuapp.com/auth', {...data}); // TODO: replace
+        const response = await axios.post('https://webitrevolution.herokuapp.com/auth', {...data});
         console.log(data)
         return response.data;
     }
@@ -39,8 +43,38 @@ export const updateUser = createAsyncThunk(
     `${AUTH_SLICE_NAME}/fetch-update`,
     async (data) => {
         console.log(data)
-        const response = await axios.post('https://webitrevolution.herokuapp.com/api/v1/users/update', {...data}); // TODO: replace
+        const response = await axios.post('https://webitrevolution.herokuapp.com/api/v1/users/update', {...data});
         return response.data;
+    }
+);
+
+export const getUserData = createAsyncThunk(
+    `${AUTH_SLICE_NAME}/fetch-userData`,
+    async (data) => {
+        const response =  await axios.get('https://webitrevolution.herokuapp.com/api/v1/profile');
+        return response.data;
+    }
+);
+
+export const getIsAuth = createAsyncThunk(
+    `${AUTH_SLICE_NAME}/fetch-isAuth`,
+    async () => {
+        const response =  await axios.get('https://webitrevolution.herokuapp.com/api/v1/isAuthenticated');
+        return response.data;
+    }
+);
+
+export const userLogout = createAsyncThunk(
+    `${AUTH_SLICE_NAME}/fetch-logout`,
+    async () => {
+        await axios.post('https://webitrevolution.herokuapp.com/logout');
+    }
+);
+
+export const deleteUser = createAsyncThunk(
+    `${AUTH_SLICE_NAME}/fetch-logout`,
+    async (id) => {
+        await axios.post(`https://webitrevolution.herokuapp.com/delete/${id}`);
     }
 );
 
@@ -62,11 +96,11 @@ export const authSlice = createSlice({
             state.loading = false
         },
         [auth.fulfilled]: (state, action) => {
-            state.userData = action.payload?.user
-            state.isAuth = action.payload?.auth
+            state.userData = action.payload
+            state.isAuth = true
             state.loading = false
-            
         },
+
         [register.pending]: (state) => {
             state.loading = true
         },
@@ -79,6 +113,7 @@ export const authSlice = createSlice({
             state.isAuth = action.payload?.auth
             state.loading = false
         },
+
         [updateUser.pending]: (state) => {
             state.loading = true
         },
@@ -90,6 +125,54 @@ export const authSlice = createSlice({
             state.userData = action.payload
             state.isAuth = true;
             state.loading = false
+        },
+
+        [getIsAuth.pending]: (state) => {
+            state.loading = true
+        },
+        [getIsAuth.rejected]: (state) => {
+            state.isAuthError = true
+            state.loading = false
+        },
+        [getIsAuth.fulfilled]: (state, action) => {
+            state.isAuth = action.payload?.isAuth;
+            state.loading = false
+        },
+        
+        [userLogout.pending]: (state) => {
+            state.loading = true
+        },
+        [userLogout.rejected]: (state) => {
+            state.logoutError = true
+            state.loading = false
+        },
+        [userLogout.fulfilled]: (state, action) => {
+            state.isAuth = false;
+            state.loading = false
+        },
+
+        [getUserData.pending]: (state) => {
+            state.loading = true
+        },
+        [getUserData.rejected]: (state) => {
+            state.authError = true
+            state.loading = false
+        },
+        [getUserData.fulfilled]: (state, action) => {
+            state.userData = action.payload
+            state.loading = false
+        },
+
+        [deleteUser.pending]: (state) => {
+            state.loading = true
+        },
+        [deleteUser.rejected]: (state) => {
+            state.authError = true
+            state.loading = false
+        },
+        [deleteUser.fulfilled]: (state, action) => {
+            state.loading = false
+            state.isAuth = false
         },
     },
 });

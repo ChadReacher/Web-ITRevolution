@@ -6,10 +6,11 @@ import { FormHelperText, Button, Box, CircularProgress } from '@mui/material'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { updateUser, selectUserData, selectUpdateUserError, selectAuthLoading } from './../../store/auth/slice';
+import { updateUser, selectUserData, selectUpdateUserError, selectAuthLoading, deleteUser,userLogout, resetAuthState } from './../../store/auth/slice';
 // Styles
 import './profile.css'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   firstName: yup.string().required(),
@@ -34,8 +35,18 @@ const Profile = () => {
   const handleClose = () => setOpen(false);
 
   const onSubmit = data => {
-    dispatch(updateUser({...data, password: user?.password, userId: user?.userId, email: user?.email,}))
+    dispatch(updateUser({ ...data, password: user?.password, userId: user?.userId, email: user?.email, }))
     handleClose()
+  }
+  
+  const navigate = useNavigate()
+
+  const onDelete = () => {
+    dispatch(deleteUser(user?.userId))
+    dispatch(userLogout())
+    dispatch(resetAuthState())
+    window.location.reload(false)
+    navigate('/')
   }
 
   if (loading) {
@@ -57,10 +68,13 @@ const Profile = () => {
         <header className="header">
           <div className="row">
             <h1 className="header__title">User profile</h1>
+
+            <Button variant="contained" className="submit_button" sx={{ backgroundColor: '#ff0000' }} onClick={onDelete}>Delete User</Button>
             <div className='row_profile' onClick={handleOpen}>
               UPDATE PROFILE
               <UpgradeIcon sx={{ color: '#fff' }} />
             </div>
+
           </div>
         </header>
         <main className="main">
@@ -89,14 +103,14 @@ const Profile = () => {
           </div>
         </main>
       </div>
-      
+
       <Modal isOpen={isOpen} handleClose={handleClose}>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="form__title">
-           Update profile
+            Update profile
           </h1>
           <p className="form__description">
-           Input your valid data
+            Input your valid data
           </p>
           <div className="row">
             <div>
@@ -128,7 +142,7 @@ const Profile = () => {
           <FormHelperText sx={{ color: 'red' }}>{errors.gender?.message}</FormHelperText>
           <input id="age" type="text" className="age-field" placeholder="Enter age"  {...register("age")} />
           <FormHelperText sx={{ color: 'red' }}>{errors.age?.message}</FormHelperText>
-          <Button variant="contained" className="submit_button" disabled={!isDirty || !isValid} type="submit" sx={{backgroundColor: '#53db47'}}>Update</Button>
+          <Button variant="contained" className="submit_button" disabled={!isDirty || !isValid} type="submit" sx={{ backgroundColor: '#53db47' }}>Update</Button>
         </form>
       </Modal>
     </>
