@@ -49,6 +49,12 @@ public class MainController {
         return userService.getUserById(id);
     }
 
+    @PostMapping("users/update")
+    public User update(@RequestBody User user) {
+        userService.updateUser(user.getUserId(), user);
+        return userService.getUserById(user.getUserId());
+    }
+
     @GetMapping("profile")
     public User getUserProfile(HttpServletResponse response) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
