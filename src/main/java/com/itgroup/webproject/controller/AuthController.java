@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "https://user-viewer.herokuapp.com/")
+@CrossOrigin(origins = "/")
 public class AuthController {
 
     private final UserService userService;
