@@ -26,7 +26,8 @@ const Auth = () => {
 
   const dispatch = useDispatch()
 
-  const onSubmit = data => {
+  const onSubmit = (data, e) => {
+    e.preventDefault();
     dispatch(auth(data))
   }
 
