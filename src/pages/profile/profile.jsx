@@ -6,10 +6,10 @@ import { FormHelperText, Button } from '@mui/material'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { updateUser } from './../../store/auth/slice';
+import { updateUser, selectUserData } from './../../store/auth/slice';
 // Styles
 import './profile.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const schema = yup.object({
   firstName: yup.string().required(),
@@ -25,6 +25,7 @@ const Profile = () => {
     mode: "onChange"
   });
   const dispatch = useDispatch()
+  const user = useSelector(selectUserData);
 
   const [isOpen, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -55,19 +56,21 @@ const Profile = () => {
 
 
             <div className="photo">
-              AV
+              {`${user?.firstName[0]}${user?.lastName[0]}`.toUpperCase()}
             </div>
             <ul className="user__data">
+              <li className="data__item">ID</li>
+              <li className="data__user">{user?.userId}</li>
               <li className="data__item">Email</li>
-              <li className="data__user">petrov@gmail.com</li>
+              <li className="data__user">{user?.email}</li>
               <li className="data__item">Name</li>
-              <li className="data__user">Ivan</li>
+              <li className="data__user">{user?.firstName}</li>
               <li className="data__item">Last name</li>
-              <li className="data__user">Ivanov</li>
+              <li className="data__user">{user?.lastName}</li>
               <li className="data__item">Age</li>
-              <li className="data__user">17</li>
+              <li className="data__user">{user?.age}</li>
               <li className="data__item">Gender</li>
-              <li className="data__user">Male</li>
+              <li className="data__user">{user?.gender}</li>
             </ul>
           </div>
         </main>

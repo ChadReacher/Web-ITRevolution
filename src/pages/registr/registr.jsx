@@ -9,7 +9,7 @@ import './registr.css'
 import { Button, FormHelperText, Box, CircularProgress } from '@mui/material';
 // Store
 import { useDispatch, useSelector } from 'react-redux';
-import { register as registerUser, selectAuthLoading } from './../../store/auth/slice';
+import { register as registerUser, selectAuthLoading , selectRegisterError} from './../../store/auth/slice';
 
 const schema = yup.object({
   firstName: yup.string().required(),
@@ -29,6 +29,7 @@ const Registr = () => {
   const dispatch = useDispatch()
 
   const loading = useSelector(selectAuthLoading)
+  const error = useSelector(selectRegisterError)
   const onSubmit = data => {
     dispatch(registerUser(data))
   }
@@ -36,6 +37,12 @@ const Registr = () => {
   if (loading) {
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
       <CircularProgress />
+    </Box>
+  }
+
+  if (error) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <FormHelperText sx={{ color: 'red' }}>User is already exist</FormHelperText>
     </Box>
   }
 
