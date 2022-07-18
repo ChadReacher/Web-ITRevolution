@@ -34,18 +34,6 @@ public class AuthController {
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
-/*    @GetMapping()
-    public ResponseEntity processSuccessLogin() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken) {
-            return new ResponseEntity(null, HttpStatus.valueOf(401));
-        } else {
-            User user =  ((UserSecurity) authentication.getPrincipal()).getUser();
-            return new ResponseEntity(user, HttpStatus.valueOf(200));
-        }
-    }*/
-
-
     @PostMapping("auth")
     public UserJson registerNewUser(@RequestBody User user) {
         userService.saveUser(user);

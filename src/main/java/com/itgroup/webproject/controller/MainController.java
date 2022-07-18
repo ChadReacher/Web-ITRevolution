@@ -42,7 +42,7 @@ public class MainController {
 
     @GetMapping("users")
     public List<User> getAllUsers() {
-        return userService.getAllUsers().subList(0, 10);
+        return userService.getAllUsers();
     }
 
     @GetMapping("users/{id}")
