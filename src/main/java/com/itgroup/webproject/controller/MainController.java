@@ -1,5 +1,6 @@
 package com.itgroup.webproject.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itgroup.webproject.entity.User;
 import com.itgroup.webproject.repository.UserRepository;
 import com.itgroup.webproject.security.BcryptPasswordEncoder;
@@ -30,12 +31,12 @@ public class MainController {
     }
 
     @GetMapping("/isAuthenticated")
-    public boolean isRegistered() {
+    public String isRegistered() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
-            return false;
+            return "{\"isAuth\":" + false + "}";
         } else {
-            return true;
+            return "{\"isAuth\":" + true + "}";
         }
     }
 
