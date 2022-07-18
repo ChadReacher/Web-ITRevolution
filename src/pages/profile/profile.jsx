@@ -1,12 +1,12 @@
 import React from 'react'
 import UpgradeIcon from '@mui/icons-material/Upgrade';
 import { Modal } from '../../components'
-import { FormHelperText, Button } from '@mui/material'
+import { FormHelperText, Button, Box, CircularProgress } from '@mui/material'
 // Hooks
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { updateUser, selectUserData } from './../../store/auth/slice';
+import { updateUser, selectUserData, selectUpdateUserError, selectAuthLoading } from './../../store/auth/slice';
 // Styles
 import './profile.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,14 +26,28 @@ const Profile = () => {
   });
   const dispatch = useDispatch()
   const user = useSelector(selectUserData);
+  const loading = useSelector(selectAuthLoading);
+  const error = useSelector(selectUpdateUserError);
 
   const [isOpen, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onSubmit = data => {
-    dispatch(updateUser(data))
+    dispatch(updateUser({...data, password: user?.password, userId: user?.userId, email: user?.email,}))
     handleClose()
+  }
+
+  if (loading) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <CircularProgress />
+    </Box>
+  }
+
+  if (error) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 30 }}>
+      <FormHelperText sx={{ color: 'red' }}>Something went wrong. Try again later</FormHelperText>
+    </Box>
   }
 
 

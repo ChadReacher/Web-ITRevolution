@@ -38,8 +38,8 @@ export const register = createAsyncThunk(
 export const updateUser = createAsyncThunk(
     `${AUTH_SLICE_NAME}/fetch-update`,
     async (data) => {
-        const response = await axios.post('https://jsonplaceholder.typicode.com/users', {...data}); // TODO: replace
         console.log(data)
+        const response = await axios.post('https://webitrevolution.herokuapp.com/api/v1/users/update', {...data}); // TODO: replace
         return response.data;
     }
 );
@@ -87,8 +87,8 @@ export const authSlice = createSlice({
             state.loading = false
         },
         [updateUser.fulfilled]: (state, action) => {
-            state.userData = action.payload?.user
-            state.isAuth = action.payload?.auth
+            state.userData = action.payload
+            state.isAuth = true;
             state.loading = false
         },
     },
